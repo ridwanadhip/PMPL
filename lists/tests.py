@@ -14,8 +14,18 @@ class HomePageTest(TestCase):
 	def test_home_page(self):
 		request = HttpRequest()
 		response = home_page(request)
-		expected_html = render_to_string('index.html')
+
+		total = Item.objects.count()
+		if total == 0:
+			comment = 'yey, waktunya berlibur'
+		elif total < 5:
+			comment = 'sibuk tapi santai'
+		else:
+			comment = 'oh tidak'
+
+		expected_html = render_to_string('index.html', {'comment': comment})
 		self.assertEqual(response.content.decode(), expected_html)
+
 		# self.assertTrue(response.content.startswith(b'<html>'))
 		# self.assertIn(b'<title>To-Do lists</title>', response.content)
 		# self.assertTrue(response.content.strip().endswith(b'</html>'))
@@ -55,6 +65,24 @@ class HomePageTest(TestCase):
 
 		self.assertIn('itemey 1', response.content.decode())
 		self.assertIn('itemey 2', response.content.decode())
+
+	def test_comment(self):
+		request = HttpRequest()
+		response = home_page(request)
+
+		self.assertIn('yey, waktunya berlibur', response.content.decode())
+
+		for n in range(4):
+			Item.objects.create(text='test {}'.format(n + 1))
+
+		request = HttpRequest()
+		response = home_page(request)
+		self.assertIn('sibuk tapi santai', response.content.decode())
+		
+		Item.objects.create(text='test 5')
+		request = HttpRequest()
+		response = home_page(request)
+		self.assertIn('oh tidak', response.content.decode())
 
 
 class ItemModelTest(TestCase):
