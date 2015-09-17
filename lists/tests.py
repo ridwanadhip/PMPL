@@ -26,10 +26,6 @@ class HomePageTest(TestCase):
 		expected_html = render_to_string('index.html', {'comment': comment})
 		self.assertEqual(response.content.decode(), expected_html)
 
-		# self.assertTrue(response.content.startswith(b'<html>'))
-		# self.assertIn(b'<title>To-Do lists</title>', response.content)
-		# self.assertTrue(response.content.strip().endswith(b'</html>'))
-
 	def test_post_request(self):
 		request = HttpRequest()
 		request.method = 'POST'
@@ -66,20 +62,23 @@ class HomePageTest(TestCase):
 		self.assertIn('itemey 1', response.content.decode())
 		self.assertIn('itemey 2', response.content.decode())
 
-	def test_comment(self):
+	def test_comment_empty(self):
 		request = HttpRequest()
 		response = home_page(request)
 
 		self.assertIn('yey, waktunya berlibur', response.content.decode())
-
-		for n in range(4):
-			Item.objects.create(text='test {}'.format(n + 1))
+	
+	def test_comment_partial(self):
+		Item.objects.create(text='test 1')
 
 		request = HttpRequest()
 		response = home_page(request)
 		self.assertIn('sibuk tapi santai', response.content.decode())
+	
+	def test_comment_full(self):
+		for n in range(5):
+			Item.objects.create(text='test {}'.format(n + 1))
 		
-		Item.objects.create(text='test 5')
 		request = HttpRequest()
 		response = home_page(request)
 		self.assertIn('oh tidak', response.content.decode())
