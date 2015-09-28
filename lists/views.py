@@ -5,7 +5,19 @@ from lists.models import Item, List
 # Create your views here.
 
 def home_page(request):
-    return render(request, 'index.html')
+    total_items = Item.objects.count()
+    if total_items == 0:
+        comment = "yey, waktunya berlibur"
+    elif total_items < 5:
+        comment = "sibuk tapi santai"
+    else:
+        comment = "oh tidak"
+    
+    data = {
+        'comment': comment,
+    }
+    
+    return render(request, 'index.html', data)
 
 
 def view_list(request, list_id):

@@ -15,37 +15,39 @@ class HomePageTest(TestCase):
         request = HttpRequest()
         response = home_page(request)
 
-        # total = Item.objects.count()
-        # if total == 0:
-            # comment = 'yey, waktunya berlibur'
-        # elif total < 5:
-            # comment = 'sibuk tapi santai'
-        # else:
-            # comment = 'oh tidak'
+        total = Item.objects.count()
+        if total == 0:
+            comment = 'yey, waktunya berlibur'
+        elif total < 5:
+            comment = 'sibuk tapi santai'
+        else:
+            comment = 'oh tidak'
 
-        expected_html = render_to_string('index.html') #, {'comment': comment})
+        expected_html = render_to_string('index.html', {'comment': comment})
         self.assertEqual(response.content.decode(), expected_html)
     
-    # def test_comment_empty(self):
-        # request = HttpRequest()
-        # response = home_page(request)
+    def test_comment_empty(self):
+        request = HttpRequest()
+        response = home_page(request)
 
-        # self.assertIn('yey, waktunya berlibur', response.content.decode())
+        self.assertIn('yey, waktunya berlibur', response.content.decode())
     
-    # def test_comment_partial(self):
-        # Item.objects.create(text='test 1')
+    def test_comment_partial(self):
+        _list = List.objects.create()
+        Item.objects.create(text='test 1', list=_list)
 
-        # request = HttpRequest()
-        # response = home_page(request)
-        # self.assertIn('sibuk tapi santai', response.content.decode())
+        request = HttpRequest()
+        response = home_page(request)
+        self.assertIn('sibuk tapi santai', response.content.decode())
     
-    # def test_comment_full(self):
-        # for n in range(5):
-            # Item.objects.create(text='test {}'.format(n + 1))
+    def test_comment_full(self):
+        _list = List.objects.create()
+        for n in range(5):
+            Item.objects.create(text='test {}'.format(n + 1), list=_list)
         
-        # request = HttpRequest()
-        # response = home_page(request)
-        # self.assertIn('oh tidak', response.content.decode())
+        request = HttpRequest()
+        response = home_page(request)
+        self.assertIn('oh tidak', response.content.decode())
 
 
 class ListAndItemModelsTest(TestCase):
