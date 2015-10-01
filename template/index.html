@@ -5,7 +5,9 @@
 	<body>
 		<h1>To-Do lists</h1>
 		<form method='POST' action='/lists/new'>
-			<input placeholder='Enter a to-do item' name='item_text' id='id_new_item' /><br/>
+			<p style="text-align: center;">
+				<input placeholder='Enter a to-do item' name='item_text' id='id_new_item' /><br/>
+			</p>
 			{% csrf_token %}
 		</form>
         <h1 id='comment'>{{ comment }}</h1>
