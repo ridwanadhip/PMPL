@@ -25,9 +25,7 @@ SECRET_KEY = '43c&uhl@37d$zoc3l=$wp!f2ow&va92_&%cb@sey45+)8az!l#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    'pmpl7ridwan.cloudapp.net',
-]
+ALLOWED_HOSTS = ['pmpl7ridwan.cloudapp.net']
 
 
 # Application definition
