@@ -32,6 +32,10 @@ def view_list(request, list_id):
     else:
         comment = "oh tidak"
     
+    if request.method == 'POST':
+        Item.objects.create(text=request.POST['item_text'], list=list_)
+        return redirect('/lists/{}/'.format(list_.id))
+    
     data = {
         'comment': comment,
         'list': list_,
@@ -52,8 +56,3 @@ def new_list(request):
         return render(request, 'index.html', {'error': error})
     return redirect('/lists/{}/'.format(list_.id))
 
-
-def add_item(request, list_id):
-    list_ = List.objects.get(id=int(list_id))
-    Item.objects.create(text=request.POST['item_text'], list=list_)
-    return redirect('/lists/{}/'.format(list_.id))
