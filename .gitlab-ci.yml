@@ -10,4 +10,5 @@ deploy:
 test:
   script:
     - echo "[TEST] python3 manage.py test"
+    - cd /home/ridwan/sites/pmpl7ridwan-dev.cloudapp.net/source
     - ../virtualenv/bin/python3 manage.py test
