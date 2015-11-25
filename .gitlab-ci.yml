@@ -1,11 +1,15 @@
-stages:
-  - build
-  - test
+init:
+  script:
+    - echo "Start deployment..."
 
-job1:
-  stage: build
-  script: "fab -f deploy-tools/fabfile.py deploy:host=ridwan@pmpl7ridwan-dev.cloudapp.net"
+deploy:
+  script:
+    - echo "[DEPLOY] fab -f deploy-tools/fabfile.py deploy:host=ridwan@pmpl7ridwan-dev.cloudapp.net"
+    - fab -f deploy-tools/fabfile.py deploy:host=ridwan@pmpl7ridwan-dev.cloudapp.net
+    - master
 
-job2:
-  stage: test
-  script: "python3 manage.py test"
+test:
+  script:
+    - echo "[TEST] python3 manage.py test"
+    - python3 manage.py test
+    - master
