@@ -11,5 +11,6 @@ deploy:
 test:
   script:
     - echo "[TEST] python3 manage.py test"
+    - source ../virtualenv/bin/activate
     - python3 manage.py test
     - master
