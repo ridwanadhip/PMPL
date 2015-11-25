@@ -6,10 +6,8 @@ deploy:
   script:
     - echo "[DEPLOY] fab -f deploy-tools/fabfile.py deploy:host=ridwan@pmpl7ridwan-dev.cloudapp.net"
     - fab -f deploy-tools/fabfile.py deploy:host=ridwan@pmpl7ridwan-dev.cloudapp.net
-    - master
 
 test:
   script:
     - echo "[TEST] python3 manage.py test"
     - ../virtualenv/bin/python3 manage.py test
-    - master
