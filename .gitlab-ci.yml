@@ -1,0 +1,11 @@
+stages:
+  - build
+  - test
+
+job1:
+  stage: build
+  script: "fab -f deploy-tools/fabfile.py deploy:host=ridwan@pmpl7ridwan-dev.cloudapp.net"
+
+job2:
+  stage: test
+  script: "python3 manage.py test"
