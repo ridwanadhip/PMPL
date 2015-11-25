@@ -4,7 +4,7 @@ import random
 
 
 REPO_URL = 'https://github.com/ridwanadhip/PMPL.git'
-env.passwords = {'ridwan@pmpl7ridwan-dev.cloudapp.net': 'ridwan'}
+env.passwords = {'ridwan@pmpl7ridwan-dev.cloudapp.net:22': 'ridwan'}
 
 def deploy():
     site_folder = '/home/%s/sites/%s' % (env.user, env.host)
