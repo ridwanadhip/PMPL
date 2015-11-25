@@ -4,8 +4,8 @@ init:
 
 deploy:
   script:
-    - echo "[DEPLOY] fab -f deploy-tools/fabfile.py deploy:host=ridwan@pmpl7ridwan-dev.cloudapp.net"
-    - fab -f deploy-tools/fabfile.py deploy:host=ridwan:ridwan@pmpl7ridwan-dev.cloudapp.net
+    - echo "[DEPLOY] fab -f deploy-tools/fabfile.py -p ridwan deploy:host=ridwan@pmpl7ridwan-dev.cloudapp.net"
+    - fab -f deploy-tools/fabfile.py deploy:host=ridwan@pmpl7ridwan-dev.cloudapp.net
     - master
 
 test:
